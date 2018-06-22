@@ -1,0 +1,32 @@
+{% extends "blogs/base.html" %}
+
+{% block header %}
+  <h1>Blogs</h1>
+{% endblock header %}
+
+{% block content %}
+
+  <ul>
+    {% for blog in topics %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>
+            {{ blog.date_added|date:'M d, Y H:i' }}
+            <small>
+              <a href="{% url 'blogs:edit_blog' blog.id %}">edit blog</a>
+            </small>
+          </h3>
+        </div>
+        <div class="panel-body">
+          {{ blog.title }}:
+          {{ blog.text|linebreaks }}
+        </div>
+      </div> <!-- panel -->
+    {% empty %}
+      No blogs have been posted yet.
+    {% endfor %}
+  </ul>
+
+    <h3><a href="{% url 'blogs:new_blog' %}">Add a new blog:</a></h3>
+
+{% endblock content %}
